@@ -1,5 +1,5 @@
 global:
-  namespace: voting-app-stack
+  namespace: voting-app-assignment
 
 # Redis helm settings
 redis:
@@ -18,7 +18,9 @@ postgresql:
 
 worker:
   replicas: 1
-  image: ghcr.io/hbollon/k8s-voting-app-aws/worker:main
+  image: 
+    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/worker
+    tag: latest
   imagePullPolicy: Always
   env:
   - name: POSTGRES_HOST
@@ -45,7 +47,9 @@ votingapp:
       spec:
         containers:
         - name: voting-app-pod
-          image: ghcr.io/hbollon/k8s-voting-app-aws/vote-app:main
+          image:
+            repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/vote-app
+            tag: latest
           imagePullPolicy: Always
           env:
           - name: REDIS_HOST
@@ -76,7 +80,9 @@ resultapp:
       spec:
         containers:
         - name: result-app-pod
-          image: ghcr.io/hbollon/k8s-voting-app-aws/result-app:main
+          image: 
+            repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/result-app
+            tag: latest
           imagePullPolicy: Always
           env:
           - name: POSTGRES_HOST
@@ -100,7 +106,7 @@ appingress:
   labels: 
     name: voting-appingress
   rules:
-  - host: result.votingapp.com
+  - host: result.app.com
     http:
       paths:
         - path: /
@@ -110,7 +116,7 @@ appingress:
               name: result-app-service
               port:
                 number: 80
-  - host: vote.votingapp.com
+  - host: vote.app.com
     http:
       paths:
         - path: /
