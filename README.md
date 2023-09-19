@@ -31,9 +31,9 @@ This project used to develop application in Kubernetes. Terraform used to create
 
 4. Install ingress controller any which you want
 
-   - ![nginx](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus-Sample-Workloads-nginx.html) 
-   - ![traefik](https://saturncloud.io/blog/getting-started-with-traefik-ingress-controller-for-kubernetes-aws-eks/)
-   - ![haproxy](https://www.haproxy.com/documentation/kubernetes/latest/community/install/aws/)
+   - [nginx](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus-Sample-Workloads-nginx.html) 
+   - [traefik](https://saturncloud.io/blog/getting-started-with-traefik-ingress-controller-for-kubernetes-aws-eks/)
+   - [haproxy](https://www.haproxy.com/documentation/kubernetes/latest/community/install/aws/)
 
 
 
