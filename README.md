@@ -4,24 +4,38 @@ A simple distributed application running across multiple Docker containers.
 
 ## Getting started
 
+This project used to develop application in Kubernetes. Terraform used to create infrastructure in EKS, Helm charts used to create deployment files for microservice based appplication, Githubaction used to create docker image and push it to ECR. 
 
-## Run the app in Kubernetes
+![Git branching strategy for microservice - diagram](eks.drawio.png)
 
-The folder k8s-specifications contains the YAML specifications of the Voting App's services.
+## Prepare EKS cluster 
 
-Run the following command to create the deployments and services. Note it will create these resources in your current namespace (`default` if you haven't changed it.)
+0. Create AWS Account
+1. Create S3 bucket and DynamoDB for saving terraform states  ![S3 and DynamoDB](https://hackernoon.com/deploying-a-terraform-remote-state-backend-with-aws-s3-and-dynamodb)
+2. Change variables in terraform scripts:
+    - network, region, version of kubernetes  in `terraform/terraform-aws-eks/environments/eks-dev/main.tf`
+    - name of cluster `terraform/terraform-aws-eks/environments/eks-dev/variables.tf`
+    - terraform states files for saving states `terraform/terraform-aws-eks/environments/eks-dev/versions.tf`
+    - Node Autoscaling files in `terraform/terraform-aws-eks/environments/eks-dev/main.tf`
 
-```shell
-kubectl create -f k8s-specifications/
-```
+3. Run script for specific environment from directory `terraform/terraform-aws-eks/environments/eks-dev`
 
-The `vote` web app is then available on port 31000 on each host of the cluster, the `result` web app is available on port 31001.
+   ```python
+    terraform init
+    terraform fmt
+    terraform validate
+    terraform plan
+    terraform apply
+   
+   ```
 
-To remove them, run:
+4. Install ingress controller any which you want
 
-```shell
-kubectl delete -f k8s-specifications/
-```
+   - ![nginx](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus-Sample-Workloads-nginx.html) 
+   - ![traefik](https://saturncloud.io/blog/getting-started-with-traefik-ingress-controller-for-kubernetes-aws-eks/)
+   - ![haproxy](https://www.haproxy.com/documentation/kubernetes/latest/community/install/aws/)
+
+
 
 ## Architecture
 

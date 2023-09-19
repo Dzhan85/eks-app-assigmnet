@@ -28,16 +28,16 @@ locals {
   cluster_name = coalesce(var.cluster_name, local.name)
   region       = "eu-central-1"
 
-  vpc_cidr = "10.250.0.0/16"
+  vpc_cidr = "10.100.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   tags = {
-    name = "test"
+    name = "dev"
   }
 }
 
 #---------------------------------------------------------------
-# EKS Blueprints
+# EKS
 #---------------------------------------------------------------
 
 module "eks_blueprints" {
