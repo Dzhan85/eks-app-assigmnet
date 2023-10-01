@@ -1,98 +1,41 @@
 global:
-  namespace: voting-app-assignment
+  namespace: votingapp
+
+replicaCount: 1
 
 # Redis helm settings
 redis:
-  image:
-    debug: true
-  global:
-    redis:
-      password: password
-  architecture: standalone
-  
-# Postgres helm settings
-postgresql:
-  postgresqlUsername: postgres
-  postgresqlPassword: password
-  postgresqlDatabase: voting-app-db
-
-worker:
-  replicas: 1
   image: 
-    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/worker
+    repository: redis
     tag: latest
   imagePullPolicy: Always
-  env:
-  - name: POSTGRES_HOST
-    value: "voting-app-postgresql"
-  - name: REDIS_HOST
-    value: "voting-app-redis-master"
-  labels:
-    name:  worker-deploy
-  resources:
-    limits:
-      memory: "128Mi"
-      cpu: "100m"
+  
+# Postgres helm settings
+db:
+  image: 
+    repository: postgres
+    tag: 15-alpine
+  imagePullPolicy: Always
 
-votingapp:
-  deploy:
-    replicas: 3
-    labels:
-      name: voting-app-deploy
-    template:
-      metadata:
-        labels:
-          name: voting-app-pod
-          type: frontend
-      spec:
-        containers:
-        - name: voting-app-pod
-          image:
-            repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/vote-app
-            tag: latest
-          imagePullPolicy: Always
-          env:
-          - name: REDIS_HOST
-            value: "voting-app-redis-master"
-          ports:
-          - containerPort: 80
-          resources:
-            limits:
-              memory: "64Mi"
-              cpu: "50m"
-  service:
-    labels:
-      name: voting-app-service
-    ports:
-    - port:  80
-      targetPort:  80
+worker:
+  image: 
+    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/worker
+    tag: 83c39691
+  imagePullPolicy: Always
 
-resultapp:
-  deploy:
-    replicas: 3
-    labels:
-      name: result-app-deploy
-    template:
-      metadata:
-        labels:
-          name: result-app-pod
-          type: frontend
-      spec:
-        containers:
-        - name: result-app-pod
-          image: 
-            repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/result-app
-            tag: latest
-          imagePullPolicy: Always
-          env:
-          - name: POSTGRES_HOST
-            value: "voting-app-postgresql"
-          ports:
-          - containerPort: 80
-          resources:
-            limits:
-              memory: "64Mi"
-              cpu: "50m"
+vote:
+  image: 
+    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/vote-app
+    tag: 83c39691
+  imagePullPolicy: Always
+
+result:
+  image: 
+    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/result-app
+    tag: 83c39691
+  imagePullPolicy: Always
+  
+  
   service:
     labels:
       name: result-app-service
@@ -102,7 +45,8 @@ resultapp:
 
 appingress:
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: internet-facing
   labels: 
     name: voting-appingress
   rules:
@@ -113,7 +57,7 @@ appingress:
           pathType: Prefix
           backend:
             service:
-              name: result-app-service
+              name: result
               port:
                 number: 80
   - host: vote.app.com
@@ -123,6 +67,6 @@ appingress:
           pathType: Prefix
           backend:
             service:
-              name: voting-app-service
+              name: vote
               port:
                 number: 80
