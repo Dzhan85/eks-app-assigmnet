@@ -19,19 +19,19 @@ db:
 
 worker:
   image: 
-    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/worker
+    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/worker
     tag: 83c39691
   imagePullPolicy: Always
 
 vote:
   image: 
-    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/vote-app
+    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/vote-app
     tag: 83c39691
   imagePullPolicy: Always
 
 result:
   image: 
-    repository: 292526779943.dkr.ecr.eu-central-1.amazonaws.com/app/result-app
+    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/result-app
     tag: 83c39691
   imagePullPolicy: Always
   
