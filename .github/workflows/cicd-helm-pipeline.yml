@@ -89,7 +89,7 @@ jobs:
         
         - name: Helm Upgrade with Specific Image Tag
           run: |
-                helm upgrade --install VOTING_APP ./helm/voting-app  --values helm/voting-app/values.yaml --set resultapp.image.tag=IMAGE_TAG_RESULT --set worker.image.tag=IMAGE_TAG_WORKER  --set voringapp.image.tag=IMAGE_TAG_VOTE --wait 
+                helm upgrade --install votingapp ./helm/voting-app  --values helm/voting-app/values.yaml --set resultapp.image.tag=IMAGE_TAG_RESULT --set worker.image.tag=IMAGE_TAG_WORKER  --set voringapp.image.tag=IMAGE_TAG_VOTE --wait 
           # env:
           #   KUBECONFIG: ${{ secrets.KUBECONFIG_PATH }}
 
