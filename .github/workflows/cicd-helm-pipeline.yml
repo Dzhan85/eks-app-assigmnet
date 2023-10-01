@@ -89,12 +89,9 @@ jobs:
         
         - name: Helm Upgrade with Specific Image Tag
           run: |
-                # Replace RELEASE_NAME with your Helm release name
-                # Replace CHART_NAME with the name of your Helm chart (e.g., ./path/to/helm/chart)
-                # Replace DOCKER_IMAGE_TAG with the specific Docker image tag you want to use
                 helm upgrade --install VOTING_APP ./helm/voting-app  --values helm/voting-app/values.yaml --set resultapp.image.tag=IMAGE_TAG_RESULT --set worker.image.tag=IMAGE_TAG_WORKER  --set voringapp.image.tag=IMAGE_TAG_VOTE --wait 
-          env:
-            KUBECONFIG: ${{ secrets.KUBECONFIG_PATH }}
+          # env:
+          #   KUBECONFIG: ${{ secrets.KUBECONFIG_PATH }}
 
 
         # - name: helm deploy
