@@ -18,10 +18,10 @@ terraform {
 
   # ##  Used for end-to-end testing on project; update to suit your needs
   backend "s3" {
-    bucket         = "eks"
+    bucket         = "iac-tfassignment-states"
     key            = "infra/eks/dev/tf.tfstate"
     region         = "eu-central-1"
-    dynamodb_table = "terraform-lock"
+    dynamodb_table = "iac-terraform-states-lock"
     encrypt        = true
   }
 }
