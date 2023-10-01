@@ -75,7 +75,8 @@ jobs:
                     --remote-name
                 chmod +x kubectl
                 sudo mv kubectl /usr/local/bin/
-                echo ${{ secrets.KUBECONFIG_PATH  }} | base64 --decode > kubeconfig.yaml
+                export KUBECONFIG=${{ secrets.KUBECONFIG_PATH  }}:~/.kube/config
+      
 
         - name: Set up Helm
           run: |
