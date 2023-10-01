@@ -11,7 +11,21 @@ This project used to develop application in Kubernetes. Terraform used to create
 ## Prepare EKS cluster 
 
 0. Create AWS Account
-1. Create S3 bucket and DynamoDB for saving terraform states  ![S3 and DynamoDB](https://hackernoon.com/deploying-a-terraform-remote-state-backend-with-aws-s3-and-dynamodb)
+1. Create S3 bucket and DynamoDB for saving terraform states  ![S3 and DynamoDB](https://hackernoon.com/
+deploying-a-terraform-remote-state-backend-with-aws-s3-and-dynamodb) 
+
+or run script in terraform/s3_dynamodb to create it
+
+   ```python
+    terraform init
+    terraform fmt
+    terraform validate
+    terraform plan
+    terraform apply
+   
+   ```
+
+
 2. Change variables in terraform scripts:
     - network, region, version of kubernetes  in `terraform/terraform-aws-eks/environments/eks-dev/main.tf`
     - name of cluster `terraform/terraform-aws-eks/environments/eks-dev/variables.tf`
@@ -34,6 +48,12 @@ This project used to develop application in Kubernetes. Terraform used to create
    - [nginx](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus-Sample-Workloads-nginx.html) 
    - [traefik](https://saturncloud.io/blog/getting-started-with-traefik-ingress-controller-for-kubernetes-aws-eks/)
    - [haproxy](https://www.haproxy.com/documentation/kubernetes/latest/community/install/aws/)
+
+
+5. Create service account for GithubAction build and deployment to EKS and apply IAM policy to it
+ 
+
+   [user githuab action](https://ianbelcher.me/tech-blog/setup-github-actions-for-eks-deployments) 
 
 
 

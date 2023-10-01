@@ -25,13 +25,13 @@ worker:
 
 vote:
   image: 
-    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/vote-app
+    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/vote
     tag: 83c39691
   imagePullPolicy: Always
 
 result:
   image: 
-    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/result-app
+    repository: 662652262585.dkr.ecr.eu-central-1.amazonaws.com/app/result
     tag: 83c39691
   imagePullPolicy: Always
   
