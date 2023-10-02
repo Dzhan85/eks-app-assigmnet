@@ -14,7 +14,7 @@ This project used to develop application in Kubernetes. Terraform used to create
 1. Create S3 bucket and DynamoDB for saving terraform states  ![S3 and DynamoDB](https://hackernoon.com/
 deploying-a-terraform-remote-state-backend-with-aws-s3-and-dynamodb) 
 
-or run script in terraform/s3_dynamodb to create it
+or run script in *terraform/s3_dynamodb* to create it
 
    ```python
     terraform init
@@ -53,7 +53,7 @@ or run script in terraform/s3_dynamodb to create it
 5. Create service account for GithubAction build and deployment to EKS and apply IAM policy to it
  
 
-   [user githuab action](https://ianbelcher.me/tech-blog/setup-github-actions-for-eks-deployments) 
+   [Create service acccount for github action CICD builds](https://ianbelcher.me/tech-blog/setup-github-actions-for-eks-deployments) 
 
 
 
@@ -75,11 +75,27 @@ or run script in terraform/s3_dynamodb to create it
  -  [Result](http://k8s-votingap-ingresss-b2576822bf-410632684.eu-central-1.elb.amazonaws.com/) 
 
 
+My ALB was deployed by terraform script by default.
+
+
+Manual install [ALB Ingress controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller/tree/main/helm/aws-load-balancer-controller)
+
+
 
 ## Notes
 
 The voting application only accepts one vote per client browser. It does not register additional votes if a vote has already been submitted from a client.
 
-This isn't an example of a properly architected perfectly designed distributed app... it's just a simple
-example of the various types of pieces and languages you might see (queues, persistent data, etc), and how to
-deal with them in Docker at a basic level.
+
+
+## Additional resources used
+
+
+1. https://aws.amazon.com/blogs/containers/building-a-gitops-pipeline-with-amazon-eks/
+2. https://ianbelcher.me/tech-blog/setup-github-actions-for-eks-deployments
+3. https://blog.devops.dev/deploy-to-amazon-eks-using-github-actions-packages-easy-way-out-70b153f04e38
+4. https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+5. https://medium.com/@jerome.decoster/kubernetes-eks-github-actions-a874321fb9b4
+6. https://octopus.com/blog/deploying-amazon-eks-github-actions
+7. https://www.weave.works/blog/gitops-with-github-actions-eks
+8. https://terraformguru.com/terraform-real-world-on-aws-ec2/20-Remote-State-Storage-with-AWS-S3-and-DynamoDB/
